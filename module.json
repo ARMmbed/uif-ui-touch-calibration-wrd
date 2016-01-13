@@ -1,6 +1,6 @@
 {
   "name": "uif-ui-touch-calibration-wrd",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "UIFramework touch sensor calibration for the Wearable Reference Design sensor and design.",
   "keywords": [],
   "author": "Marcus Chang <marcus.chang@arm.com>",
