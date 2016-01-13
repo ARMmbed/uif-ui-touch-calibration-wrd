@@ -31,7 +31,9 @@
 #define SLIDER_2 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_2
 #define SLIDER_3 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_3
 #define SLIDER_4 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_4
+#ifdef YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_BACK
 #define SLIDER_BACK YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_BACK
+#endif
 #else
 #error Platform not supported
 #endif
@@ -48,6 +50,7 @@ TouchCalibrationView::TouchCalibrationView()
 
     c0->setVerticalAlignment(UIView::VALIGN_TOP);
     c0->setInverse(true);
+    c0->setWidth(100);
 
     c1 = SharedPointer<UITextMonitorView<int32_t> >(
             new UITextMonitorView<int32_t>(this, &TouchCalibrationView::getC1,
@@ -55,6 +58,7 @@ TouchCalibrationView::TouchCalibrationView()
 
     c1->setVerticalAlignment(UIView::VALIGN_TOP);
     c1->setInverse(true);
+    c1->setWidth(100);
 
     c2 = SharedPointer<UITextMonitorView<int32_t> >(
             new UITextMonitorView<int32_t>(this, &TouchCalibrationView::getC2,
@@ -62,6 +66,7 @@ TouchCalibrationView::TouchCalibrationView()
 
     c2->setVerticalAlignment(UIView::VALIGN_TOP);
     c2->setInverse(true);
+    c2->setWidth(100);
 
     c3 = SharedPointer<UITextMonitorView<int32_t> >(
             new UITextMonitorView<int32_t>(this, &TouchCalibrationView::getC3,
@@ -69,6 +74,7 @@ TouchCalibrationView::TouchCalibrationView()
 
     c3->setVerticalAlignment(UIView::VALIGN_TOP);
     c3->setInverse(true);
+    c3->setWidth(100);
 
 #if (YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_CHANNELS_IN_USE > 4)
     c4 = SharedPointer<UITextMonitorView<int32_t> >(
@@ -77,6 +83,7 @@ TouchCalibrationView::TouchCalibrationView()
 
     c4->setVerticalAlignment(UIView::VALIGN_TOP);
     c4->setInverse(true);
+    c4->setWidth(100);
 #endif
 
     c5 = SharedPointer<UITextMonitorView<int32_t> >(
@@ -85,6 +92,7 @@ TouchCalibrationView::TouchCalibrationView()
 
     c5->setVerticalAlignment(UIView::VALIGN_TOP);
     c5->setInverse(true);
+    c5->setWidth(100);
 
     /* calibration alert cell */
     calibrationAlertCell = SharedPointer<UITextView>(new UITextView("Calibrating",
@@ -104,7 +112,9 @@ TouchCalibrationView::TouchCalibrationView()
     button1 = SharedPointer<AnalogButton>(new AnalogButton(SLIDER_2));
     button2 = SharedPointer<AnalogButton>(new AnalogButton(SLIDER_3));
     button3 = SharedPointer<AnalogButton>(new AnalogButton(SLIDER_4));
+#ifdef SLIDER_BACK
     button4 = SharedPointer<AnalogButton>(new AnalogButton(SLIDER_BACK));
+#endif
 }
 
 TouchCalibrationView::~TouchCalibrationView()
@@ -154,8 +164,6 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                int16_t xOffset,
                                                int16_t yOffset)
 {
-    (void) xOffset;
-    (void) yOffset;
     unsigned int callInterval = ULONG_MAX;
 
     int32_t min;
@@ -170,7 +178,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                                  2,
                                                                  100,
                                                                  20);
-    callInterval = c0->fillFrameBuffer(c0Canvas, 0, 0);
+    callInterval = c0->fillFrameBuffer(c0Canvas, xOffset, yOffset);
 
     min = button0->getMinValue();
     max = button0->getMaxValue();
@@ -182,7 +190,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                                  22,
                                                                  100,
                                                                  20);
-    c1->fillFrameBuffer(c1Canvas, 0, 0);
+    c1->fillFrameBuffer(c1Canvas, xOffset, yOffset);
 
     min = button1->getMinValue();
     max = button1->getMaxValue();
@@ -194,7 +202,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                                  42,
                                                                  100,
                                                                  20);
-    c2->fillFrameBuffer(c2Canvas, 0, 0);
+    c2->fillFrameBuffer(c2Canvas, xOffset, yOffset);
 
     min = button2->getMinValue();
     max = button2->getMaxValue();
@@ -206,7 +214,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                                  62,
                                                                  100,
                                                                  20);
-    c3->fillFrameBuffer(c3Canvas, 0, 0);
+    c3->fillFrameBuffer(c3Canvas, xOffset, yOffset);
 
     min = button3->getMinValue();
     max = button3->getMaxValue();
@@ -219,7 +227,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                                  82,
                                                                  100,
                                                                  20);
-    c4->fillFrameBuffer(c4Canvas, 0, 0);
+    c4->fillFrameBuffer(c4Canvas, xOffset, yOffset);
 
     min = button4->getMinValue();
     max = button4->getMaxValue();
@@ -231,7 +239,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
                                                                    102,
                                                                    100,
                                                                    20);
-    c5->fillFrameBuffer(cposCanvas, 0, 0);
+    c5->fillFrameBuffer(cposCanvas, xOffset, yOffset);
 
     val = slider->getLocation();
     val = 128 * (val - 1000) / (4000 - 1000);
@@ -249,7 +257,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
         alertCanvas->drawRectangle(4, alertCanvas->getWidth() - 4,
                                    4, alertCanvas->getHeight() - 4, 0);
 
-        calibrationAlertCell->fillFrameBuffer(alertCanvas, 0, 0);
+        calibrationAlertCell->fillFrameBuffer(alertCanvas, xOffset, yOffset);
 
 //            callInterval = 1000;
     }
