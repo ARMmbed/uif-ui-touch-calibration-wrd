@@ -22,7 +22,7 @@
 #include "uiframework/UIFramework.h"
 #include "uif-matrixlcd/MatrixLCD.h"
 
-#ifndef YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH
+#ifndef YOTTA_CFG_HARDWARE_WRD_TOUCH
 #error target not supported
 #endif
 
@@ -32,7 +32,7 @@ static SharedPointer<UIFramework> uiFramework;
 
 static SharedPointer<UIView> view(new TouchCalibrationView());
 
-static InterruptIn button(YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_BUTTON_FORWARD);
+static InterruptIn button(YOTTA_CFG_HARDWARE_WRD_BUTTON_FORWARD);
 
 /*****************************************************************************/
 

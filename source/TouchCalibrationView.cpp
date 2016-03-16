@@ -26,13 +26,13 @@
 #define printf(...)
 #endif
 
-#if YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_PRESENT
-#define SLIDER_1 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_1
-#define SLIDER_2 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_2
-#define SLIDER_3 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_3
-#define SLIDER_4 YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_4
-#ifdef YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_BACK
-#define SLIDER_BACK YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_SLIDER_BACK
+#if YOTTA_CFG_HARDWARE_WRD_TOUCH_PRESENT
+#define SLIDER_1 YOTTA_CFG_HARDWARE_WRD_TOUCH_SLIDER_1
+#define SLIDER_2 YOTTA_CFG_HARDWARE_WRD_TOUCH_SLIDER_2
+#define SLIDER_3 YOTTA_CFG_HARDWARE_WRD_TOUCH_SLIDER_3
+#define SLIDER_4 YOTTA_CFG_HARDWARE_WRD_TOUCH_SLIDER_4
+#ifdef YOTTA_CFG_HARDWARE_WRD_TOUCH_SLIDER_BACK
+#define SLIDER_BACK YOTTA_CFG_HARDWARE_WRD_TOUCH_SLIDER_BACK
 #endif
 #else
 #define SLIDER_1 0
@@ -79,7 +79,7 @@ TouchCalibrationView::TouchCalibrationView()
     c3->setInverse(true);
     c3->setWidth(100);
 
-#if (YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_CHANNELS_IN_USE > 4)
+#if (YOTTA_CFG_HARDWARE_WRD_TOUCH_CHANNELS_IN_USE > 4)
     c4 = SharedPointer<UITextMonitorView<int32_t> >(
             new UITextMonitorView<int32_t>(this, &TouchCalibrationView::getC4,
                                            "%4d", &Font_Dayndate, 100));
@@ -224,7 +224,7 @@ uint32_t TouchCalibrationView::fillFrameBuffer(SharedPointer<FrameBuffer>& canva
     val = button3->getValue();
     canvas->drawRectangle(10, 110 * (val - min) / (max - min), 76, 80, 1);
 
-#if (YOTTA_CFG_HARDWARE_WEARABLE_REFERENCE_DESIGN_TOUCH_CHANNELS_IN_USE > 4)
+#if (YOTTA_CFG_HARDWARE_WRD_TOUCH_CHANNELS_IN_USE > 4)
     /* pad 4 */
     SharedPointer<FrameBuffer> c4Canvas = canvas->getFrameBuffer(10,
                                                                  82,
