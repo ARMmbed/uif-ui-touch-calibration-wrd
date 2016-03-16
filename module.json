@@ -11,8 +11,8 @@
   "homepage": "https://github.com/ARMmbed/uif-ui-touch-calibration-wrd",
   "license": "Apache-2.0",
   "dependencies": {
-    "uiframework": "^4.0.0",
-    "core-util": "^1.0.0",
-    "wrd-touch": "^3.0.0"
+    "uif-ui-collection-wrd": "*",
+    "mbed-drivers": "*",
+    "wrd-touch": "^4.0.0"
   }
 }
